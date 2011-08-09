@@ -7,7 +7,7 @@ use Expect qw(exp_continue);
 use Log::Log4perl qw(:easy);
 use Module::Pluggable require => 1;
 
-our $VERSION = "0.06";
+our $VERSION = "0.07";
 our $PACKAGE = __PACKAGE__;
 
 our $PASSWORD_MONKEY_OK      = 1;
@@ -206,6 +206,8 @@ PasswordMonkey - Password prompt responder
 =head1 SYNOPSIS
 
     use PasswordMonkey;
+    use PasswordMonkey::Filler::Sudo;
+    use PasswordMonkey::Filler::Adduser;
 
     my $sudo = PasswordMonkey::Filler::Sudo->new(
         password => "supersecrEt",

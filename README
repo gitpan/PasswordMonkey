@@ -1,5 +1,5 @@
 ######################################################################
-    PasswordMonkey 0.06
+    PasswordMonkey 0.07
 ######################################################################
 
 NAME
@@ -7,6 +7,8 @@ NAME
 
 SYNOPSIS
         use PasswordMonkey;
+        use PasswordMonkey::Filler::Sudo;
+        use PasswordMonkey::Filler::Adduser;
 
         my $sudo = PasswordMonkey::Filler::Sudo->new(
             password => "supersecrEt",
