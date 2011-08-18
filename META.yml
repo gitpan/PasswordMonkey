@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               PasswordMonkey
-version:            0.07
+version:            0.08
 abstract:           Password prompt responder
 author:
     - Mike Schilli <cpan@perlmeister.com>
@@ -15,6 +15,7 @@ requires:
     IO::Pty:            1.09
     Log::Log4perl:      1
     Module::Pluggable:  3.9
+    Term::ReadKey:      2.3
     Term::ReadLine:     1.01
 resources:
     repository:  https://github.com/ytoolshed/passwordmonkey-perl
