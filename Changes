@@ -1,6 +1,15 @@
 ######################################################################
 Revision history for Perl extension PasswordMonkey
 
+0.09  2011/12/17
+    (ms) Lots of better documentation
+    (ms) Calling -noecho right before submitting the password to make
+         sure the password isn't echoed even if the collecting program
+         forgot to turn echoing off.
+    (ms) PasswordMonkey::Filler::Password plugin and tests
+    (ms) Bouncer error now gets reported as LOGWARN
+    (ms) PasswordMonkey::Bouncer::Retry plugin and tests
+
 0.08  2011/08/17
     (ms) Added missing Term::ReadKey for testsuite
 

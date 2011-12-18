@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               PasswordMonkey
-version:            0.08
+version:            0.09
 abstract:           Password prompt responder
 author:
     - Mike Schilli <cpan@perlmeister.com>
@@ -13,6 +13,7 @@ build_requires:
 requires:
     Expect:             1.21
     IO::Pty:            1.09
+    IO::Stty:           0.03
     Log::Log4perl:      1
     Module::Pluggable:  3.9
     Term::ReadKey:      2.3

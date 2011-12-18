@@ -65,7 +65,51 @@ sub fill {
         $password = $password->();
     }
 
+      # To be sure the password doesn't end up in the output if 
+      # the collecting program forgot to turn echoing off (or we fell
+      # for something that looked like a password prompt but the 
+      # driven program isn't collecting at all), check first and if 
+      # echo is on, turn it off on the pty slave manually.
+    my $stty_settings = $exp->slave->stty("-a");
+    DEBUG "stty_settings are $stty_settings";
+
+    my $echo_is_on = 1;
+    if( $stty_settings =~ /-echo\b/ ) {
+        $echo_is_on = 0;
+    }
+
+    if( $echo_is_on ) {
+        ERROR "Whoa there! Echo on pty slave is on. ",
+              "Turning it off before sending password.";
+        $exp->slave->stty(qw(-echo));
+    }
+
+    DEBUG "Sending password over to slave pty";
     $exp->send( $password, "\n" );
+
+
+    if( $echo_is_on ) {
+        ERROR "Restoring echo on slave pty.";
+
+          # Just sending over 'echo' here seems to be too early to suppress
+          # echoing the password we just sent. 
+          # 
+          # Worse, there doesn't seem to be a reliabe way to wait until the
+          # Pty slave won't echo the password we just sent if we turn on
+          # its echo. I've tried sending another '-echo', sending a '-a'
+          # to retrieve status, but none of them makes sure the Pty slave
+          # will have flushed the data and they're failing in unpredictable
+          # ways based on race conditions.
+          # 
+          # This is horrible, but I got best results by sleeping a second 
+          # before turning the echo back on, so that's what we're stuck
+          # with right now. What a mess.
+        sleep 1;
+
+        $exp->slave->stty(qw(echo));
+    }
+
+    1;
 }
 
 ###########################################
